@@ -29,10 +29,7 @@ static void * timer_routine(void * args) {
 		for (temp = dev_list; temp != NULL; temp = temp->next) {
 			pthread_mutex_lock(&temp->id.event_lock);
 			while (!temp->id.done && !temp->id.fsh) {
-				pthread_cond_wait(
-					&temp->id.event_cond,
-					&temp->id.event_lock
-				);
+				pthread_cond_wait(&temp->id.event_cond,&temp->id.event_lock);
 			}
 			if (temp->id.fsh) {
 				fsh++;
@@ -95,7 +92,8 @@ void detach_event(struct timer_id_t * event) {
 struct timer_id_t * attach_event() {
 	if (timer_started) {
 		return NULL;
-	}else{
+	}
+	else{
 		struct timer_id_container_t * container =
 			(struct timer_id_container_t*)malloc(
 				sizeof(struct timer_id_container_t)		
