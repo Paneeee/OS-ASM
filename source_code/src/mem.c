@@ -138,7 +138,7 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 		 * 	- Add entries to segment table page tables of [proc]
 		 * 	  to ensure accesses to allocated memory slot is
 		 * 	  valid. */
-		int prev_index = 0,current_index = 0;
+		int prev_index,current_index = 0;
 		for (int i = 0; i < NUM_PAGES; i++) {
 			if (_mem_stat[i].proc == 0){
 				_mem_stat[i].proc = proc->pid;
@@ -176,14 +176,14 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 					struct page_table_t* page_table_2 = segment_table->table[segment_table->size].pages;
 
 					page_table_2->table[0].v_index = page_index;
-					page_table_2->table[0].p_index = (addr_t)i;
+					page_table_2->table[0].p_index = i;
 
-					page_table_2->size = 0;
+					page_table_2->size = 1;
 					segment_table->size++;	
 				}
 				prev_index = i;
                 current_index++;
-				if (current_index > counter){
+				if (current_index == num_pages){
 					_mem_stat[i].next = -1;
 					break;
 				}
