@@ -208,7 +208,10 @@ int free_mem(addr_t address, struct pcb_t * proc) {
 
 	if (test != NULL){	//First page of process NULL => no page stored
 		int count = 0;
-		int index = test->table[get_second_lv(address)].p_index;
+		addr_t physical_address;
+		translate(address, &physical_address, proc);
+		int index = physical_address >> OFFSET_LEN;
+
 		while(index!=-1){
 			addr_t current_address = address + count * PAGE_SIZE;
 			addr_t segment_index = get_first_lv(current_address);
