@@ -10,22 +10,8 @@ void enqueue(struct queue_t * q, struct pcb_t * proc) {
 	if (q->size == MAX_QUEUE_SIZE){
 		return;	
 	}
-	if (q->size==0){
-		q->proc[0] = proc;
-		q->size++;
-		return;
-	}
-	for (int i = q->size-1;i>=0;i--){
-		if (proc->priority <= q->proc[i]->priority){
-			i++;
-			for (int j = q->size; j>i;j--){
-				q->proc[j] = q->proc[j-1];
-			}
-			q->proc[i] = proc;
-			q->size++;
-			return;
-		}
-	}
+	q->proc[q->size] = proc;
+	q->size++;
 }
 
 struct pcb_t * dequeue(struct queue_t * q) {
@@ -35,9 +21,21 @@ struct pcb_t * dequeue(struct queue_t * q) {
 	if (q == NULL || q->size == 0)
 		return NULL;
 	
-	struct pcb_t *to_run = q->proc[q->size-1];
+	struct pcb_t *result = NULL;
+	uint32_t max_prior = 0, index=0;
+
+	for (int i = 0;i < q->size;i++){
+		if (q->proc[i]->priority > max_prior){
+			max_prior = q->proc[i]->priority;
+			index = i;
+		}
+	}
+	result = q->proc[index];
+	for (int i=index;i<q->size-1;i++){
+		q->proc[i] = q->proc[i+1];
+	}
 	q->proc[q->size-1] = NULL;
 	q->size--;
-	return to_run;
+	return result;
 }	
 

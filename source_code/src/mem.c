@@ -146,7 +146,7 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 				if (current_index!=0)
 					_mem_stat[prev_index].next = i;
 
-				addr_t temp = ret_mem + (current_index << OFFSET_LEN);
+				addr_t temp = ret_mem + current_index*PAGE_SIZE;
 				addr_t segment_index = get_first_lv(temp);
 				addr_t page_index = get_second_lv(temp);
 				struct  seg_table_t* segment_table = proc->seg_table;
