@@ -183,7 +183,7 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 				}
 				prev_index = i;
                 current_index++;
-				if (current_index == counter){
+				if (current_index > counter){
 					_mem_stat[i].next = -1;
 					break;
 				}
