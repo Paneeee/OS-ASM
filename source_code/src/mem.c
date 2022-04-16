@@ -143,7 +143,6 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 			if (_mem_stat[i].proc == 0){
 				_mem_stat[i].proc = proc->pid;
 				_mem_stat[i].index = current_index;
-                current_index++;
 				_mem_stat[prev_index].next = i;
 
 				addr_t temp = ret_mem + (current_index << OFFSET_LEN);
@@ -182,6 +181,7 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 					segment_table->size++;	
 				}
 				prev_index = i;
+                current_index++;
 				if (current_index == counter){
 					_mem_stat[i].next = -1;
 					break;
