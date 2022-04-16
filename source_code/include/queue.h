@@ -16,6 +16,5 @@ void enqueue(struct queue_t * q, struct pcb_t * proc);
 struct pcb_t * dequeue(struct queue_t * q);
 
 int empty(struct queue_t * q);
-
 #endif
 
