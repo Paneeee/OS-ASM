@@ -5,7 +5,7 @@
 int empty(struct queue_t * q) {
 	return (q->size == 0);
 }
-
+//Insert a process [proc] to tail of queue [q]
 void enqueue(struct queue_t * q, struct pcb_t * proc) {
 	if (q->size == MAX_QUEUE_SIZE){
 		return;	
@@ -13,7 +13,7 @@ void enqueue(struct queue_t * q, struct pcb_t * proc) {
 	q->proc[q->size] = proc;
 	q->size++;
 }
-
+//Return process with highest priority by traverse the queue [q]
 struct pcb_t * dequeue(struct queue_t * q) {
 	/* TODO: return a pcb whose priority is the highest
 	 * in the queue [q] and remember to remove it from q
