@@ -222,13 +222,13 @@ int free_mem(addr_t address, struct pcb_t * proc) {
 					for (int j=0; j<page_table->size;j++){
 						if (page_table->table[j].v_index == page_index){
 							for (int p=j; p<page_table->size-1;p++){
-								page_table->table[p] = page_table->table[p+1];
+								page_table->table[p] = page_table->table[p+1];		//Shift left the array to remove element
 							}
 							page_table->size--;
 							if (page_table->size==0){				//May cause error
 								free(proc->seg_table->table[i].pages);
 								for (int q=i;q<proc->seg_table->size-1;q++){
-									proc->seg_table->table[q] =proc->seg_table->table[q+1];
+									proc->seg_table->table[q] =proc->seg_table->table[q+1];	//Shift left the array to remove element
 								}
 								proc->seg_table->size--;
 
