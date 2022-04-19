@@ -1,5 +1,3 @@
------- SCHEDULING TEST 0 -------------------------------------------
-./os sched_0
 Time slot   0
 	Loaded a process at input/proc/s0, PID: 1
 Time slot   1
@@ -52,3 +50,4 @@ Time slot  23
 	CPU 0: Processed  1 has finished
 	CPU 0 stopped
 
+MEMORY CONTENT: 
