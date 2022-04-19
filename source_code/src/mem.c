@@ -104,7 +104,7 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 	 * byte in the allocated memory region to [ret_mem].
 	 * */
 
-	uint32_t num_pages = ((size % PAGE_SIZE) == 0) ? size / PAGE_SIZE :
+	uint32_t number_pages = ((size % PAGE_SIZE) == 0) ? size / PAGE_SIZE :
 		size / PAGE_SIZE + 1; // Number of pages we will use
 	int mem_avail = 0; // We could allocate new memory region or not?
 
@@ -117,19 +117,19 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 	 * For virtual memory space, check bp (break pointer).
 	 * */
 	int counter = 0;
-	for(int i = 0; i < NUM_PAGES && counter < num_pages; i++){//Check if ram memory space is avaiable
+	for(int i = 0; i < NUM_PAGES && counter < number_pages; i++){//Check if ram memory space is avaiable
 		if(_mem_stat[i].proc == 0){
 			counter++;
 		}
 	}
-	if (counter == num_pages && proc->bp + num_pages*PAGE_SIZE <=RAM_SIZE){
+	if (counter == number_pages && proc->bp + number_pages*PAGE_SIZE <=RAM_SIZE){
 		mem_avail = 1;
 	}
 
 	if (mem_avail) {
 		/* We could allocate new memory region to the process */
 		ret_mem = proc->bp;
-		proc->bp += num_pages * PAGE_SIZE;
+		proc->bp += number_pages * PAGE_SIZE;
 		/* Update status of physical pages which will be allocated
 		 * to [proc] in _mem_stat. Tasks to do:
 		 * 	- Update [proc], [index], and [next] field
@@ -147,6 +147,7 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 				if (cur_index!=0){
 					_mem_stat[prev_index].next = i;
 				}
+				
 				temp_address = ret_mem + (cur_index * PAGE_SIZE);
 				segment_index = get_first_lv(temp_address);
 				page_index = get_second_lv(temp_address);
@@ -179,7 +180,7 @@ addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
 				}
 				prev_index = i;
 				cur_index++;
-				if (cur_index == num_pages){
+				if (cur_index == number_pages){
 					_mem_stat[i].next = -1;
 					break;
 				}
@@ -240,8 +241,9 @@ int free_mem(addr_t address, struct pcb_t * proc) {
 					
 				}
 			}
-			_mem_stat[index].proc = 0;
 			count++;
+						
+			_mem_stat[index].proc = 0;
 			index = _mem_stat[index].next;
 		}
 	}

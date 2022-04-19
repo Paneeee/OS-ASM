@@ -39,13 +39,13 @@ struct pcb_t * get_proc(void) {
 	}
 	return proc;
 }
-
+//Push a process to run_queue
 void put_proc(struct pcb_t * proc) {
 	pthread_mutex_lock(&queue_lock);
 	enqueue(&run_queue, proc);
 	pthread_mutex_unlock(&queue_lock);
 }
-
+//Push a process to ready_queue
 void add_proc(struct pcb_t * proc) {
 	pthread_mutex_lock(&queue_lock);
 	enqueue(&ready_queue, proc);
