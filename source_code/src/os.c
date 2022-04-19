@@ -10,7 +10,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-static int time_slot;
+static int time_slot; //Allowed time for a process to run
 static int num_cpus;
 static int done = 0;
 
@@ -38,7 +38,7 @@ static void * cpu_routine(void * args) {
 		 	* ready queue */
 			proc = get_proc();
 		}else if (proc->pc == proc->code->size) {
-			/* The porcess has finish it job */
+			/* The process has finish it job */
 			printf("\tCPU %d: Processed %2d has finished\n",
 				id ,proc->pid);
 			free(proc);

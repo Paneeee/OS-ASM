@@ -19,7 +19,7 @@ static int alloc(struct pcb_t * proc, uint32_t size, uint32_t reg_index) {
 static int free_data(struct pcb_t * proc, uint32_t reg_index) {
 	return free_mem(proc->regs[reg_index], proc);
 }
-
+// READ [source] [offset] [destination] implementation
 static int read(
 		struct pcb_t * proc, // Process executing the instruction
 		uint32_t source, // Index of source register
@@ -34,7 +34,7 @@ static int read(
 		return 1;
 	}
 }
-
+//WRITE [data] [destination] [offset] implementation
 static int write(
 		struct pcb_t * proc, // Process executing the instruction
 		BYTE data, // Data to be wrttien into memory
@@ -43,7 +43,7 @@ static int write(
 					// [destination] + [offset]
 	return write_mem(proc->regs[destination] + offset, proc, data);
 } 
-
+//Move PC forward, execute instruction
 int run(struct pcb_t * proc) {
 	/* Check if Program Counter point to the proper instruction */
 	if (proc->pc >= proc->code->size) {

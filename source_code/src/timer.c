@@ -1,4 +1,5 @@
 
+
 #include "timer.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -130,7 +131,3 @@ void stop_timer() {
 		free(temp);
 	}
 }
-
-
-
-

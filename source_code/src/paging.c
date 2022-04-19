@@ -4,7 +4,7 @@
 #include "loader.h"
 #include <stdio.h>
 #include <stdlib.h>
-
+//Pass the path of file txt (aka process), call the loader to create pcb and run
 int main(int argc, char ** argv) {
 	if (argc < 2) {
 		printf("Cannot find input process\n");

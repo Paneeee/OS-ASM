@@ -11,7 +11,7 @@ static uint32_t avail_pid = 1;
 #define OPT_FREE	"free"
 #define OPT_READ	"read"
 #define OPT_WRITE	"write"
-
+//Interpret input into intrustion
 static enum ins_opcode_t get_opcode(char * opt) {
 	if (!strcmp(opt, OPT_CALC)) {
 		return CALC;
@@ -28,7 +28,7 @@ static enum ins_opcode_t get_opcode(char * opt) {
 		exit(1);
 	}
 }
-
+//Create new PCB, initialize, get priority, size of code, code segment and parameters
 struct pcb_t * load(const char * path) {
 	/* Create new PCB for the new process */
 	struct pcb_t * proc = (struct pcb_t * )malloc(sizeof(struct pcb_t));
